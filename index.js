@@ -1,11 +1,13 @@
 //Include packages needed for this application
+const fs = require('fs');
 const inquirer = require('inquirer');
+const generateMarkdown = require('generateMarkdown.js');
 
-// TODO: Create an array of questions for user input
+// Create an array of questions for user input
 const questions = [
     {
         type: 'input', 
-        name: 'name',
+        name: 'title',
         message: 'Welcome to the ReadMe Generator! Please enter the title of your project',
         validate: titleInput =>{
             if (titleInput){
@@ -33,7 +35,7 @@ const questions = [
     },
     {
         type: 'input', 
-        name: 'name',
+        name: 'GitHub',
         message: 'What is your Gitub username?',
         validate: githubInput =>{
             if (githubInput){
@@ -47,7 +49,7 @@ const questions = [
     },
     {
         type: 'input', 
-        name: 'name',
+        name: 'description',
         message: 'Enter the description of your project',
         validate: descriptionInput =>{
             if (descriptionInput){
@@ -61,13 +63,13 @@ const questions = [
     },
     {
         type: 'input', 
-        name: 'name',
+        name: 'installation',
         message: 'Enter the installation instructions of your project',
         validate: installInput =>{
             if (installInput){
                 return true;
             } else {
-                console.log('You must include installation instructions for your project, please try again')
+                console.log('Please provide instructions for installation to run your program')
                 return false;
             }
         }
@@ -75,13 +77,13 @@ const questions = [
     },
     {
         type: 'input', 
-        name: 'name',
+        name: 'usage',
         message: 'Enter usage information of your project',
         validate: usageInput =>{
             if (usageInput){
                 return true;
             } else {
-                console.log('You must include usage information, please try again')
+                console.log('Please provide usage instructions to help users navigate your project')
                 return false;
             }
         }
@@ -89,13 +91,13 @@ const questions = [
     },
     {
         type: 'input', 
-        name: 'name',
+        name: 'contributions',
         message: 'Enter contribution guidelines of your project',
         validate: contributionInput =>{
             if (contributionInput){
                 return true;
             } else {
-                console.log('Your project must include contribution guidelines, please try again')
+                console.log('Please provide guidelines for others to contribute to your project')
                 return false;
             }
         }
@@ -115,7 +117,26 @@ const questions = [
         }
 
     },
+    {
+        type: 'confirm', 
+        name: 'confirmLicense',
+        message: 'Would you like to include a license?',
+    },
+    {
+        type: 'list',
+        name: 'license',
+        choices: ['MIT','ISC','zLib','Academic Free License'],
+        when: licenseChosen =>{
+            if (licenseChosen){
+                return true;
+            }else {
+                return false; 
+            }
+        }
+    }
 ]
+
+ 
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {}
