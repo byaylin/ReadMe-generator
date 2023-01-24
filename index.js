@@ -2,10 +2,10 @@
 //to write file 
 const fs = require('fs');
 const inquirer = require('inquirer');
-//const generateMarkdown = require('generateMarkdown.js');
+const generateMarkdown = require('./newMarkdown/generateMarkdown');
 
 // Create an array of questions for user input
-inquirer.prompt([
+const userAns =([
         {
             type: 'input', 
              name: 'title',
@@ -59,22 +59,21 @@ inquirer.prompt([
         {
             type: 'list',
             name: 'license',
-            choices: ['MIT','ISC','zLib','Academic Free License'],
+            choices: ['MIT','CC','GPL','None'],
         }
 ])
-
- function init(){
-    inquirer.prompt(questions).then(function(answers){
-        const htmlData = generateMarkdown(answers)
-        fs.writeFile('index.html', htmlData, function (err){
-            if(err){
+//initializes app
+function init(){
+    inquirer.prompt(userAns).then(function(answers){
+        const markdownData = generateMarkdown(answers)
+        fs.writeFile('./newMarkdown/README.md', markdownData, function (err){
+            if (err){
                 console.log(err)
-            }else{
-                console.log("Ta-da")
+            } else {
+                console.log("Yay :D")
             }
         })
     })
- }
+}
 
- init();
-
+init();
